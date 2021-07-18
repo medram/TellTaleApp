@@ -1,0 +1,83 @@
+import * as React from 'react'
+import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
+import { createStackNavigator } from '@react-navigation/stack'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import Ionicons from 'react-native-vector-icons/Ionicons'
+
+import HomeScreen from '../screens/Home'
+import MyGamesScreen from '../screens/MyGames'
+import NewsScreen from '../screens/News'
+import AccountScreen from '../screens/Account'
+import LoginScreen from '../screens/Login'
+import MyGameDetailScreen from '../screens/MyGameDetail'
+import AccountDetailsScreen from '../screens/AccountDetails'
+import { fonts, sizes } from '../configs/fonts'
+
+
+const Stack = createStackNavigator()
+const Tab = createBottomTabNavigator()
+
+const getTabScreenOptions = (route) => {
+    return {
+        tabBarIcon: ({ focused, color, size }) => {
+            let iconName = ''
+            if (route.name === 'Home'){
+                iconName = 'home-outline'
+            } else if (route.name === 'Account') {
+                iconName = 'person-circle-outline'
+            } else if(route.name === 'News') {
+                iconName = 'newspaper-outline'
+            } else if (route.name === 'MyGames') {
+                iconName = 'archive-outline'
+            }
+
+            return <Ionicons name={iconName} size={size} color={color} />
+        }
+    }
+}
+
+const tabBarOptions = {
+    style: {
+        height: 65,
+    },
+    tabStyle: {
+        paddingTop: 5,
+        paddingBottom: 10,
+    },
+    labelStyle: {
+        fontFamily: fonts.medium,
+        fontSize: sizes.base,
+    }
+}
+
+function DefaultTabBarButton(props)
+{
+    return <TouchableOpacity {...props} />
+}
+
+export function TabMenu(props)
+{
+    return (
+        <Tab.Navigator screenOptions={({ route }) => getTabScreenOptions(route)} tabBarOptions={tabBarOptions}>
+            <Tab.Screen name="Home" component={HomeScreen} options={{ tabBarButton: DefaultTabBarButton }} />
+            <Tab.Screen name="MyGames" component={MyGamesScreen} options={{title: 'Games', tabBarButton: DefaultTabBarButton }} />
+            <Tab.Screen name="News" component={NewsScreen} options={{ tabBarButton: DefaultTabBarButton }} />
+            <Tab.Screen name="Account" component={AccountScreen} options={{ tabBarButton: DefaultTabBarButton }} />
+        </Tab.Navigator>
+    )
+}
+
+export function StackMenu(props)
+{
+    return (
+        <Stack.Navigator>
+            <Stack.Screen name='Home' component={TabMenu} />
+            <Stack.Screen name='Login' component={LoginScreen} />
+            <Stack.Screen name='MyGameDetail' component={MyGameDetailScreen} />
+            <Stack.Screen name='AccountDetails' component={AccountDetailsScreen} />
+        </Stack.Navigator>
+    )
+}
+
+
+

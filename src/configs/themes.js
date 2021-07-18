@@ -1,0 +1,53 @@
+import * as colors from './colors';
+
+export const lightTheme = {
+    dark: false,
+    colors: {
+        primary: colors.green,
+        secondary: colors.blue,
+        background: colors.gray3,
+        card: colors.white,
+        text: colors.gray7,
+        border: colors.gray2,
+        success: colors.green,
+        warning: colors.yellow,
+        error: colors.red,
+        secondaryText: colors.gray6,
+        thirdText: colors.gray4,
+        forthText: colors.gray6,
+        fifthText: colors.gray4,
+        secondaryIcon: colors.gray2,
+        secondaryButton: colors.gray1,
+        secondaryCard: colors.white,
+        secondaryBackground: colors.white,
+        thirdCard: colors.gray3,
+        modal: colors.gray7,
+        textButtonGroup: colors.gray4,
+    },
+};
+
+export const darkTheme = {
+    dark: true,
+    colors: {
+        primary: colors.green,
+        secondary: colors.blue,
+        background: colors.gray12,
+        card: colors.gray13,
+        text: colors.gray8,
+        border: colors.gray13,
+        success: colors.green,
+        warning: colors.yellow,
+        error: colors.red,
+        secondaryText: colors.gray10,
+        thirdText: colors.gray9,
+        forthText: colors.gray9,
+        fifthText: colors.gray10,
+        secondaryButton: colors.gray12,
+        secondaryIcon: colors.gray10,
+        secondaryCard: colors.gray11,
+        secondaryBackground: colors.gray12,
+        thirdCard: colors.gray11,
+        modal: colors.gray12,
+        textButtonGroup: colors.gray8,
+    },
+};
