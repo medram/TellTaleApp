@@ -12,6 +12,8 @@ import LoginScreen from '../screens/Login'
 import MyGameDetailScreen from '../screens/MyGameDetail'
 import AccountDetailsScreen from '../screens/AccountDetails'
 import { fonts, sizes } from '../configs/fonts'
+import { AuthContext } from '../utils/contexts'
+import OnlinePage from '../screens/OnlinePage'
 
 
 const Stack = createStackNavigator()
@@ -59,22 +61,44 @@ export function TabMenu(props)
 {
     return (
         <Tab.Navigator screenOptions={({ route }) => getTabScreenOptions(route)} tabBarOptions={tabBarOptions}>
-            <Tab.Screen name="Home" component={HomeScreen} options={{ tabBarButton: DefaultTabBarButton }} />
-            <Tab.Screen name="MyGames" component={MyGamesScreen} options={{title: 'Games', tabBarButton: DefaultTabBarButton }} />
-            <Tab.Screen name="News" component={NewsScreen} options={{ tabBarButton: DefaultTabBarButton }} />
-            <Tab.Screen name="Account" component={AccountScreen} options={{ tabBarButton: DefaultTabBarButton }} />
+            <Tab.Screen name="Home" component={HomeScreen}
+                options={{ tabBarButton: DefaultTabBarButton }} />
+
+            <Tab.Screen name="MyGames" component={MyGamesScreen}
+                options={{title: 'Games', tabBarButton: DefaultTabBarButton }} />
+
+            <Tab.Screen name="News" component={NewsScreen}
+                options={{ tabBarButton: DefaultTabBarButton }} />
+
+            <Tab.Screen name="Account" component={AccountScreen}
+                options={{ tabBarButton: DefaultTabBarButton }} />
         </Tab.Navigator>
     )
 }
 
 export function StackMenu(props)
 {
+    const {isLoggedIn} = React.useContext(AuthContext)
+
     return (
         <Stack.Navigator>
-            <Stack.Screen name='Home' component={TabMenu} />
-            <Stack.Screen name='Login' component={LoginScreen} />
-            <Stack.Screen name='MyGameDetail' component={MyGameDetailScreen} />
-            <Stack.Screen name='AccountDetails' component={AccountDetailsScreen} />
+        {!isLoggedIn ?
+            <Stack.Screen name='Login' component={LoginScreen}
+                options={{ headerShown: false }} />
+        : (
+            <>
+                <Stack.Screen name='Home' component={TabMenu}
+                    options={{ headerShown: false }} />
+
+                <Stack.Screen name='MyGameDetail' component={MyGameDetailScreen}
+                    options={{ headerShown: false }} />
+
+                <Stack.Screen name='AccountDetails' component={AccountDetailsScreen}
+                    options={{ headerShown: false }} />
+
+                <Stack.Screen name='OnlinePage' component={OnlinePage} options={({route}) => ({title: route.params.title})} />
+            </>
+        )}
         </Stack.Navigator>
     )
 }
