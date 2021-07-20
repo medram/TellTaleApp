@@ -53,7 +53,7 @@ export async function getGamesDetailt(url)
             const content = htmlDom.querySelector('div#content').outerHTML
             const footer = htmlDom.querySelector('footer').outerHTML
             const scripts = Array.from(htmlDom.querySelectorAll('script')).map(script => script.outerHTML)
-            console.log(scripts)
+
             return `<html>
                         <head>
                             ${head}

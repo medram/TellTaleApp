@@ -22,8 +22,6 @@ export default function HomeScreen(props)
     const onRefreshHandler = React.useCallback(() => {
         (async () => {
             setRefreshing(true)
-            console.log('Refresh!!')
-
             const games = await getGames()
             setGames(games)
             setRefreshing(false)
