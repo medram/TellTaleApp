@@ -3,6 +3,7 @@ import { View, Text, StyleSheet } from 'react-native'
 import { WebView } from 'react-native-webview'
 import { getGamesDetailt } from '../services/common-service'
 
+
 export default function OnlinePage(props)
 {
     const { route, navigation , ...rest} = props
