@@ -1,21 +1,13 @@
-import React from 'react';
+import * as React from 'react';
 
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  View,
-  useColorScheme,
-} from 'react-native';
-
+import { StyleSheet, useColorScheme} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { ThemeProvider } from 'react-native-elements'
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import FlashMessage, { showMessage } from 'react-native-flash-message'
+import AsyncStorage from '@react-native-community/async-storage'
 
-import { StackMenu, TabMenu } from './src/navigators'
+import { StackMenu } from './src/navigators'
 import { darkTheme, lightTheme } from './src/configs/themes';
 import { AuthContext } from './src/utils/contexts'
 import { signIn } from './src/services/auth-service';
@@ -54,7 +46,7 @@ function App() {
 
         dispatch({ type: 'UPDATE_USER', payload: user})
         // save user data on storage
-
+        await AsyncStorage.setItem('@user', JSON.stringify(user))
         showMessage({
           message: 'Signed in successfully.',
           type: 'success'
@@ -74,6 +66,23 @@ function App() {
       dispatch({ type: 'UPDATE_USER', payload: {} })
     },
   }), [])
+
+  React.useEffect(() => {
+    (async () => {
+      try
+      {
+        const user = JSON.parse(await AsyncStorage.getItem('@user'))
+
+        if (user.token)
+        {
+          dispatch({ type: 'UPDATE_USER', payload: user})
+          dispatch({ type: 'IS_LOGGED_IN', payload: true})
+        }
+      } catch (err){
+        console.log(err)
+      }
+    })()
+  }, [])
 
   return (
     <SafeAreaProvider>

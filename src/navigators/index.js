@@ -11,9 +11,9 @@ import AccountScreen from '../screens/Account'
 import LoginScreen from '../screens/Login'
 import MyGameDetailScreen from '../screens/MyGameDetail'
 import AccountDetailsScreen from '../screens/AccountDetails'
+import OnlinePage from '../screens/OnlinePage'
 import { fonts, sizes } from '../configs/fonts'
 import { AuthContext } from '../utils/contexts'
-import OnlinePage from '../screens/OnlinePage'
 
 
 const Stack = createStackNavigator()
@@ -64,11 +64,11 @@ export function TabMenu(props)
             <Tab.Screen name="Home" component={HomeScreen}
                 options={{ tabBarButton: DefaultTabBarButton }} />
 
-            <Tab.Screen name="MyGames" component={MyGamesScreen}
-                options={{title: 'Games', tabBarButton: DefaultTabBarButton }} />
-
             <Tab.Screen name="News" component={NewsScreen}
                 options={{ tabBarButton: DefaultTabBarButton }} />
+
+            <Tab.Screen name="MyGames" component={MyGamesScreen}
+                options={{title: 'My Games', tabBarButton: DefaultTabBarButton }} />
 
             <Tab.Screen name="Account" component={AccountScreen}
                 options={{ tabBarButton: DefaultTabBarButton }} />

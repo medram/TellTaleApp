@@ -10,9 +10,14 @@ export default function Article(props)
     const {data : article, onPress} = props
 
     return <TouchableOpacity onPress={onPress} activeOpacity={0.8} delayPressIn={30} >
-        <View style={styles.container} {...props}>
-            <Image source={{ uri: article?.post_image }} style={{ height: 200 }} />
+        <View {...props} style={styles.container}>
+            <Image source={{ uri: article?.post_image }} style={styles.post_image} />
+            <View style={styles.description}>
             <Text style={styles.title}>{article?.title}</Text>
+            {article?.extra && (
+                <Text style={styles.extra}>{article.extra.join(' > ')}</Text>
+            )}
+            </View>
         </View>
     </TouchableOpacity>
 }
@@ -25,11 +30,23 @@ const styles = StyleSheet.create({
         backgroundColor: colors.grey5,
         overflow: 'hidden',
     },
+    post_image: {
+        height: 200,
+    },
     title: {
         fontFamily: fonts.medium,
         color: colors.grey1,
         fontSize: sizes.h3,
+    },
+    description: {
+        flex: 1,
         paddingHorizontal: 15,
         paddingVertical: 10,
+    },
+    extra: {
+        fontFamily: fonts.regular,
+        color: colors.grey3,
+        fontSize: sizes.h5,
+        marginTop: 10,
     }
 })

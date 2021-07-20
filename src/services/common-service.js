@@ -1,8 +1,8 @@
 import axios from 'axios'
 import { showMessage } from 'react-native-flash-message'
+import { BASE_URL } from '../configs/api'
 import { jsdom } from 'jsdom-jscore-rn'
 
-import { BASE_URL } from '../configs/api'
 
 
 export async function getGames(email, password) {
@@ -12,6 +12,7 @@ export async function getGames(email, password) {
 
         if (req.status === 200)
         {
+            // const { jsdom } = require('jsdom-jscore-rn')
             const htmlDom = jsdom(req.data)
             let articles = Array.from(htmlDom.querySelectorAll('article'))
 
@@ -36,9 +37,37 @@ export async function getGames(email, password) {
     return [] // no articles found
 }
 
-export function getNews()
+export async function getNews()
 {
+    try {
+        const req = await axios.get(`${BASE_URL}/category/news/`)
 
+        if (req.status === 200) {
+            // const { jsdom } = require('jsdom-jscore-rn')
+            const htmlDom = jsdom(req.data)
+            let articles = Array.from(htmlDom.querySelectorAll('article'))
+
+            articles = articles.map(art => {
+                let title = (art.querySelector("h3.elementor-post__title").querySelector('a')).textContent.trim()
+                let post_image = (art.querySelector("div.elementor-post__thumbnail img")).getAttribute('src')
+                let url = (art.querySelector("a.elementor-post__thumbnail__link")).getAttribute('href')
+
+                let meta_data = Array.from(art.querySelector('div.elementor-post__meta-data').children).map(child => child.innerHTML.trim())
+
+                return { title, post_image, url, extra: meta_data };
+            })
+
+            return articles
+        }
+
+    } catch (err) {
+        console.log(err)
+        showMessage({
+            message: 'Oops!, Something went wrong.',
+            type: 'warning'
+        })
+    }
+    return [] // no articles found
 }
 
 export async function getGamesDetailt(url)
@@ -47,7 +76,7 @@ export async function getGamesDetailt(url)
         const req = await axios.get(url)
 
         if (req.status === 200) {
-
+            // const { jsdom } = require('jsdom-jscore-rn')
             const htmlDom = jsdom(req.data)
             const head =  htmlDom.querySelector('head').innerHTML
             const content = htmlDom.querySelector('div#content').outerHTML
@@ -73,4 +102,5 @@ export async function getGamesDetailt(url)
             type: 'warning'
         })
     }
+    return ""
 }
