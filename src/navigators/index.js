@@ -68,7 +68,7 @@ export function TabMenu(props)
                 options={{ tabBarButton: DefaultTabBarButton }} />
 
             <Tab.Screen name="MyGames" component={MyGamesScreen}
-                options={{title: 'My Games', tabBarButton: DefaultTabBarButton }} />
+                options={{title: 'My Saves', tabBarButton: DefaultTabBarButton }} />
 
             <Tab.Screen name="Account" component={AccountScreen}
                 options={{ tabBarButton: DefaultTabBarButton }} />

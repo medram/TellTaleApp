@@ -104,3 +104,46 @@ export async function getGamesDetailt(url)
     }
     return ""
 }
+
+export async function getAllGames()
+{
+    try {
+        const res = await axios.get('https://account.telltale.com/account/box-art-assets.json')
+        if (res.status === 200) {
+            return res.data
+        }
+    } catch (err) {
+        console.log(err)
+        showMessage({
+            message: 'Oops!, Something went wrong.',
+            type: 'warning'
+        })
+    }
+    return []
+}
+
+export async function getMyGames()
+{
+    try
+    {
+        const res = await axios.get('/entitlement')
+        const allGames = await getAllGames()
+
+        if (res.status === 200)
+        {
+            const data = res.data?.entitlements?.length && res.data.entitlements
+            const slugs = data.map(d => d.game)
+            // return allGames
+            return allGames.filter(game => {
+                return slugs.includes(game.slug)
+            })
+        }
+    } catch (err){
+        console.log(err)
+        showMessage({
+            message: 'Oops!, Something went wrong.',
+            type: 'warning'
+        })
+    }
+    return []
+}

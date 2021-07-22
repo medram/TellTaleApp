@@ -6,32 +6,35 @@ import { useNavigation } from '@react-navigation/native'
 import Article from '../components/Article'
 import { getGames } from '../services/common-service'
 import NotFound from '../components/NotFound'
+import { useTheme } from 'react-native-elements'
 
 
 export default function HomeScreen(props)
 {
     const navigation = useNavigation()
     const [games, setGames] = React.useState([])
-    const [refreshing, setRefreshing] = React.useState(false)
+    const [refreshing, setRefreshing] = React.useState(true)
+    const { colors } = useTheme().theme
 
     React.useEffect(() => {
         (async () => {
             const games = await getGames()
             setGames(games)
+            setRefreshing(false)
         })()
     }, [])
 
-    const onRefreshHandler = () => {
+    const onRefreshHandler = React.useCallback(() => {
         (async () => {
             setRefreshing(true)
             const games = await getGames()
             setGames(games)
             setRefreshing(false)
         })()
-    }
+    }, [])
 
     return <ScrollView contentContainerStyle={{ flexGrow: 1 }}
-            refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefreshHandler} />}>
+        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefreshHandler} />}>
         <View style={styles.container}>
             {games.length ? games.map((game, index) => {
                 return <Article key={index} data={game}
@@ -40,7 +43,7 @@ export default function HomeScreen(props)
                             url: game.url
                         })} />
             }) : (
-                <NotFound text='No Games Found' icon={(props) => <Ionicons name='home-outline' {...props} />} />
+                refreshing || <NotFound text='No Games Found' icon={(props) => <Ionicons name='home-outline' {...props} />} />
             )}
         </View>
     </ScrollView>

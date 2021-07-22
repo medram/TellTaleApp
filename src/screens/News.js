@@ -11,23 +11,24 @@ import NotFound from '../components/NotFound'
 export default function NewsScreen(props) {
     const navigation = useNavigation()
     const [news, setNews] = React.useState([])
-    const [refreshing, setRefreshing] = React.useState(false)
+    const [refreshing, setRefreshing] = React.useState(true)
 
     React.useEffect(() => {
         (async () => {
             const news = await getNews()
             setNews(news)
+            setRefreshing(false)
         })()
     }, [])
 
-    const onRefreshHandler = () => {
+    const onRefreshHandler = React.useCallback(() => {
         (async () => {
             setRefreshing(true)
             const news = await getNews()
             setNews(news)
             setRefreshing(false)
         })()
-    }
+    }, [])
 
     return <ScrollView contentContainerStyle={{ flexGrow: 1 }}
             refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefreshHandler} />}>
@@ -39,7 +40,7 @@ export default function NewsScreen(props) {
                         url: article.url
                     })} />
             }) : (
-                <NotFound text='No News Found' icon={(props) => <Ionicons name='newspaper-outline' {...props} />} />
+                refreshing || <NotFound text='No News Found' icon={(props) => <Ionicons name='newspaper-outline' {...props} />} />
             )}
         </View>
     </ScrollView>

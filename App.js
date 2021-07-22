@@ -6,6 +6,7 @@ import { ThemeProvider } from 'react-native-elements'
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import FlashMessage, { showMessage } from 'react-native-flash-message'
 import AsyncStorage from '@react-native-community/async-storage'
+import axios from 'axios';
 
 import { StackMenu } from './src/navigators'
 import { darkTheme, lightTheme } from './src/configs/themes';
@@ -45,6 +46,8 @@ function App() {
         const user = { ...data.user, token: data.token }
 
         dispatch({ type: 'UPDATE_USER', payload: user})
+        axios.defaults.headers.common['Authorization'] = `Token ${user.token}`
+
         // save user data on storage
         await AsyncStorage.setItem('@user', JSON.stringify(user))
         showMessage({
@@ -62,6 +65,7 @@ function App() {
       dispatch({type: 'IS_LOADING', payload: false})
     },
     signOut: async () => {
+      axios.defaults.headers.common['Authorization'] = ''
       dispatch({ type: 'IS_LOGGED_IN', payload: false })
       dispatch({ type: 'UPDATE_USER', payload: {} })
     },
@@ -75,6 +79,7 @@ function App() {
 
         if (user.token)
         {
+          axios.defaults.headers.common['Authorization'] = `Token ${user.token}`
           dispatch({ type: 'UPDATE_USER', payload: user})
           dispatch({ type: 'IS_LOGGED_IN', payload: true})
         }
