@@ -1,10 +1,11 @@
 import * as React from 'react'
-import { Text, View, StyleSheet, ScrollView, RefreshControl, FlatList, Dimensions } from 'react-native'
-import { colors, Image } from 'react-native-elements'
+import { Text, View, StyleSheet, Dimensions } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
+import { FlatGrid } from 'react-native-super-grid';
+
 import NotFound from '../components/NotFound'
 import { getMyGames } from '../services/common-service'
-import { FlatGrid } from 'react-native-super-grid';
+import Cover from '../components/Cover'
 
 
 const WIDTH = Dimensions.get('window').width
@@ -18,6 +19,7 @@ const getOrientation = () => {
 
 
 export default function MyGamesScreen(props) {
+    const {route, navigation} = props
     const [myGames, setMyGames] = React.useState([])
     const [refreshing, setRefreshing] = React.useState(true)
     const [orientation, setOrientation] = React.useState(getOrientation())
@@ -43,27 +45,17 @@ export default function MyGamesScreen(props) {
     }, [])
 
     const renderCover = React.useCallback(({ item: game }) => {
-        // let coverWidth = orientation === 'portrait'? 180 : 140
-        // let coverHeight = orientation === 'portrait' ? 220 : 190
-
-        // return <View style={styles.cover}>
-        //     <Image source={{ uri: game.assets.cover_image }} style={[styles.coverImage, { width: coverWidth, height: coverHeight }]} resizeMode='stretch' />
-        //     <Text>{game.title}</Text>
-        // </View>
+        return <Cover game={game} onPress={() => navigation.navigate('MyGameDetail', {
+            title: game.title,
+            game: game
+        })} />
+    }, [])
 
 
-        return <View style={styles.cover}>
-            <Image source={{ uri: game.assets.cover_image }} style={styles.coverImage} />
-            <Text style={styles.coverTitle}>{game.title}</Text>
-        </View>
-    }, [orientation])
-
-        // <FlatList data={myGames} renderItem={renderCover} keyExtractor={(game) => game.slug} refreshing={refreshing} onRefresh={refreshHandler} />
-
-    console.log('render')
     return <View style={styles.container}>
         {myGames.length ? (
-            <FlatGrid data={myGames} renderItem={renderCover} refreshing={refreshing} onRefresh={refreshHandler} />
+            <FlatGrid data={myGames} renderItem={renderCover} keyExtractor={(item) => item.slug}
+                refreshing={refreshing} onRefresh={refreshHandler} />
         ) : (
             refreshing || <NotFound text="No Games' Saves Found" icon={(props) => <Ionicons name='archive-outline' {...props} />} />
         )}
@@ -72,37 +64,13 @@ export default function MyGamesScreen(props) {
 
 const styles = StyleSheet.create({
     container: {
-        // flex: 1,
+        flex: 1,
         // flexWrap: 'wrap',
         // flexDirection: 'row',
         // justifyContent: 'space-evenly',
         // justifyContent: 'space-evenly',
         // paddingHorizontal: 10,
         // paddingVertical: 15,
-    },
-    cover: {
-        flex: 1,
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-        // backgroundColor: colors.grey5,
-        // borderWidth: 1,
-        // borderColor: colors.grey4,
-        // borderRadius: 5,
-        overflow: 'hidden',
-        // marginVertical: 5,
-        // marginHorizontal: MARGIN_HORIZENTAL,
-        // width: WIDTH / COLUMNS - MARGIN_HORIZENTAL * 2,
-    },
-    coverImage: {
-        width: 150,
-        height: 190,
-        resizeMode: 'stretch',
-
-        // width: WIDTH / COLUMNS - MARGIN_HORIZENTAL * 2,
-        // height: (WIDTH / COLUMNS - MARGIN_HORIZENTAL * 2) * 12 / 9
-    },
-    coverTitle: {
-        color: colors.grey2,
     },
     columnWrapperStyle: {
     },
