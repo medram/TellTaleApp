@@ -131,14 +131,32 @@ export async function getMyGames()
 
         if (res.status === 200)
         {
-            const data = res.data?.entitlements?.length && res.data.entitlements
+            const data = (res.data?.entitlements?.length && res.data.entitlements) || []
             const slugs = data.map(d => d.game)
             // return allGames
+            // return []
             return allGames.filter(game => {
                 return slugs.includes(game.slug)
             })
         }
     } catch (err){
+        console.log(err)
+        showMessage({
+            message: 'Oops!, Something went wrong.',
+            type: 'warning'
+        })
+    }
+    return []
+}
+
+export async function getGameDetail(gameSlug)
+{
+    try {
+        const res = await axios.get(`https://api.telltale.com/3/cloudsave/${gameSlug}/choices`)
+        if (res.status === 200) {
+            return res.data
+        }
+    } catch (err) {
         console.log(err)
         showMessage({
             message: 'Oops!, Something went wrong.',
