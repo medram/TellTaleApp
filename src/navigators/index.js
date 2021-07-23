@@ -62,7 +62,7 @@ export function TabMenu(props)
     return (
         <Tab.Navigator screenOptions={({ route }) => getTabScreenOptions(route)} tabBarOptions={tabBarOptions}>
             <Tab.Screen name="Home" component={HomeScreen}
-                options={{ tabBarButton: DefaultTabBarButton }} />
+                options={{ title: 'Games', tabBarButton: DefaultTabBarButton }} />
 
             <Tab.Screen name="News" component={NewsScreen}
                 options={{ tabBarButton: DefaultTabBarButton }} />
