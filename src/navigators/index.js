@@ -91,12 +91,13 @@ export function StackMenu(props)
                     options={{ headerShown: false }} />
 
                 <Stack.Screen name='MyGameDetail' component={MyGameDetailScreen}
-                    options={{ headerShown: false }} />
+                            options={({ route }) => ({ title: `${route.params.title} (Choices)`})} />
 
                 <Stack.Screen name='AccountDetails' component={AccountDetailsScreen}
                     options={{ headerShown: false }} />
 
-                <Stack.Screen name='OnlinePage' component={OnlinePage} options={({route}) => ({title: route.params.title})} />
+                <Stack.Screen name='OnlinePage' component={OnlinePage}
+                    options={({route}) => ({title: route.params.title})} />
             </>
         )}
         </Stack.Navigator>
