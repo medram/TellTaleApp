@@ -25,6 +25,9 @@ export default function MyGameDetailScreen(props) {
 
 
     const parseEpisodes = React.useCallback((gameDetail) => {
+        if (!Array.isArray(gameDetail?.choices?.choice_document) && !Array.isArray(gameDetail?.extended?.choice_document))
+            return []
+
         let keys = gameDetail?.choices?.choice_document.concat(gameDetail?.extended?.choice_document).map((ep, index) => ep.episode)
         keys = Array.from(new Set(keys))
 
