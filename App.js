@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import { StyleSheet, useColorScheme} from 'react-native';
+import { StyleSheet, useColorScheme, StatusBar} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { ThemeProvider } from 'react-native-elements'
+import { ThemeProvider, colors, useTheme } from 'react-native-elements'
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import FlashMessage, { showMessage } from 'react-native-flash-message'
 import AsyncStorage from '@react-native-community/async-storage'
@@ -15,10 +15,15 @@ import { signIn } from './src/services/auth-service';
 // set some global Axios configs
 import './src/configs/api'
 
+// customizing phone StatusBar
+StatusBar.setBarStyle('light-content')
+StatusBar.setBackgroundColor(colors.primary)
+
+
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
-  const currentTheme = isDarkMode === 'dark' ? darkTheme : lightTheme
+  const currentTheme = isDarkMode ? darkTheme : lightTheme
 
   const [state, dispatch] = React.useReducer((prevState, action) => {
     switch(action.type)
