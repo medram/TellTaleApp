@@ -2,14 +2,16 @@ import * as React from 'react';
 
 import { StyleSheet, useColorScheme, StatusBar} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { ThemeProvider, colors, useTheme } from 'react-native-elements'
+import { ThemeProvider, useTheme } from 'react-native-elements'
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import FlashMessage, { showMessage } from 'react-native-flash-message'
 import AsyncStorage from '@react-native-community/async-storage'
-import axios from 'axios';
+import axios from 'axios'
+import SplashScreen from 'react-native-splash-screen'
 
 import { StackMenu } from './src/navigators'
 import { darkTheme, lightTheme } from './src/configs/themes';
+import * as colors from './src/configs/colors';
 import { AuthContext } from './src/utils/contexts'
 import { signIn } from './src/services/auth-service';
 // set some global Axios configs
@@ -17,7 +19,7 @@ import './src/configs/api'
 
 // customizing phone StatusBar
 StatusBar.setBarStyle('light-content')
-StatusBar.setBackgroundColor(colors.primary)
+StatusBar.setBackgroundColor(colors.green)
 
 
 
@@ -75,6 +77,10 @@ function App() {
       dispatch({ type: 'UPDATE_USER', payload: {} })
     },
   }), [])
+
+  React.useEffect(() => {
+    SplashScreen.hide()
+  }, [])
 
   React.useEffect(() => {
     (async () => {
