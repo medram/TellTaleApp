@@ -17,7 +17,12 @@ export default function MyGameDetailScreen(props) {
 
     React.useEffect(() => {
         (async () => {
-            const data = await getGameDetail(game.slug)
+            let data = await getGameDetail(game.slug)
+            while (data?.choices?.choice_document === undefined)
+            {
+                // console.log('Getting Data Again')
+                data = await getGameDetail(game.slug)
+            }
             setGameDetail(data)
             setRefreshing(false)
         })()
