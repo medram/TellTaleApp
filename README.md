@@ -19,6 +19,8 @@ So YES, it's totaly safe.
 | ------------------- | ------------------- | ------------------- | ------------------- |
 | ![alt text](https://imgur.com/mncZx3o.png) | ![alt text](https://imgur.com/YX14o4c.png) | ![alt text](https://imgur.com/JtHQyAp.png) | ![alt text](https://imgur.com/Dr7IG6b.png) |
 
+## 📥 Download APK:
+![alt text](https://imgur.com/0LypKgB.png)
 
 ## License:
 This app is under GPL v3 License.
