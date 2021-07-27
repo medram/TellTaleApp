@@ -5,13 +5,13 @@ A none official TellTale android app to check news/games of TellTale studio, wit
 Please Don't use this app for purchasing games/DLCs, instead use the official website (https://www.telltale.com/).
 
 ## Why this app exists:
-I've played some TellTale games (Batman, Batman Season two), and I like them,
+I've played some TellTale games (Batman, Batman Season two), and I like them,<br>
 So I've wanted to show my friends my games saves/choices in an easy way,
 moreover I would like to practice more on creating mobile apps using react-native 😜
 
 ## Is this app safe?
-This app is using the offcial TellTate web api, and not saving any kind of information/data on third-party servers,
-So YES, it's totaly safe.
+This app is using the offcial TellTate web api, and not saving any kind of information/data on third-party servers,<br>
+So YES, it's totally safe.
 
 ## Some Screenshots:
 
