@@ -146,6 +146,16 @@ android {
         }
     }
     signingConfigs {
+        release {
+            def Properties keyProps = new Properties()
+            keyProps.load(new FileInputStream(file('../../.keystore')))
+
+
+            storeFile file(keyProps["STORE_FILE"])
+            keyAlias keyProps["KEY_ALIAS"]
+            storePassword keyProps["STORE_PASSWORD"]
+            keyPassword keyProps["KEY_PASSWORD"]
+        }
         debug {
             storeFile file('debug.keystore')
             storePassword 'android'
@@ -163,6 +173,7 @@ android {
             signingConfig signingConfigs.debug
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            signingConfig signingConfigs.release
         }
     }
 

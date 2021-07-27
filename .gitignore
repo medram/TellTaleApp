@@ -1,6 +1,10 @@
 # android/
 # ios/
 
+# ignore keystore props
+.keystore
+android/app/my-release-key.keystore
+
 # OSX
 #
 .DS_Store
