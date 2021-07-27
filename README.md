@@ -24,4 +24,4 @@ So YES, it's totally safe.
 ![alt text](https://imgur.com/0LypKgB.png)
 
 ## License:
-This app is under GPL v3 License.
+This app is under MIT License.
