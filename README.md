@@ -20,6 +20,7 @@ So YES, it's totally safe.
 | ![alt text](https://imgur.com/mncZx3o.png) | ![alt text](https://imgur.com/YX14o4c.png) | ![alt text](https://imgur.com/JtHQyAp.png) | ![alt text](https://imgur.com/Dr7IG6b.png) |
 
 ## 📥 Download APK:
+[Click Me to Download](https://github.com/medram/TellTaleApp/raw/master/TellTale.apk)<br><br>
 ![alt text](https://imgur.com/0LypKgB.png)
 
 ## License:
